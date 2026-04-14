@@ -77,16 +77,16 @@
 
   /* WhatsApp demo */
   .wa-body { max-height: 320px; overflow-y: auto; }
-  .wa-msg { opacity: 0; animation: msgIn 0.4s ease forwards; }
+  .wa-msg { opacity: 1; animation: msgIn 0.4s ease forwards; }
   @keyframes msgIn {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 1; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   /* Reveal */
   .reveal {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
   }
   .reveal.visible {
