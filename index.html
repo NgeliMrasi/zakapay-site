@@ -4,568 +4,75 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZakaPay — Abolishing the 10% Informal Tax</title>
-<meta name="description" content="ZakaPay abolishes the 10% Informal Tax on South African townships. Send money on WhatsApp for R1. Cash out at the spaza. Powered by Stellar.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
     theme: {
       extend: {
-        colors: {
-          bg: '#060f08',
-          'bg-soft': '#0c1a10',
-          fg: '#f0ede6',
-          'fg-dim': '#b8b4a8',
-          muted: '#5a6b5e',
-          accent: '#00e676',
-          'accent-warm': '#a8e063',
-          card: '#111f15',
-          'card-hover': '#162a1b',
-          border: '#1e3324',
-          whatsapp: '#25D366',
-          danger: '#dc3545',
-          gold: '#ffd700',
-        },
-        fontFamily: {
-          display: ['Outfit', 'sans-serif'],
-          body: ['DM Sans', 'sans-serif'],
-        },
+        colors: { bg: '#060f08', fg: '#f0ede6', accent: '#00e676', card: '#111f15', border: '#1e3324' },
+        fontFamily: { display: ['Outfit', 'sans-serif'], body: ['DM Sans', 'sans-serif'] },
       }
     }
   }
 </script>
 <style>
-  * { margin: 0;  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #060f08;
-    color: #f0ede6;
-    -webkit-font-smoothing: antialiased;
-    overflow-y: auto;
-  }
-  h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
-
-  /* Noise */
-  }
-
-  /* Glow */
-  }
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-  }
-
-  /* WhatsApp demo */
-  .wa-body { max-height: 320px; overflow-y: auto; }
-  .wa-msg { opacity: 1; animation: msgIn 0.4s ease forwards; }
-  @keyframes msgIn {
-    from { opacity: 1; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Reveal */
-  .reveal {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Focus */
-  *:focus-visible {
-    outline: 2px solid #00e676;
-    outline-offset: 2px;
-  }
-
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
-    .reveal { opacity: 1 !important; transform: none !important; }
-  }
+  body { background: #060f08; color: #f0ede6; font-family: 'DM Sans', sans-serif; overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
 </style>
 </head>
-<body>
+<body class="p-5">
 
-<!-- ==================== NAV ==================== -->
-<nav class="fixed top-0 left-0 right-0 z-50 bg-bg/90 backdrop-blur-xl border-b border-border">
-  <div class="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
-    <a href="#hero" class="font-display font-black text-lg tracking-tight">
-      <span class="text-fg">Zaka</span><span class="text-accent">Pay</span>
-    </a>
-    <div class="flex items-center gap-5">
-      <a href="#problem" class="hidden sm:block text-xs text-muted hover:text-fg transition font-medium">Problem</a>
-      <a href="#how" class="hidden sm:block text-xs text-muted hover:text-fg transition font-medium">How</a>
-      <a href="#security" class="hidden sm:block text-xs text-muted hover:text-fg transition font-medium">Security</a>
-      <a href="#team" class="hidden sm:block text-xs padding: 0; box-sizing: border-box; }
- text-muted hover:text Stellar blockchain to make it R1.
-    </p>
-    <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-3" style="transition-delay:0.3s">
-      <a href="#waitlist" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-accent text-bg font-display font-bold text-sm shadow-lg shadow-accent/25 hover:shadow-accent/40 hover:-translate-y-0.5 transition-all">
-        <i class="fa-brands fa-whatsapp"></i> Join the Waitlist
-      </a>
-      <a href="#how" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-fg-dim text-sm hover:border-accent hover:text-accent transition-all">
-        <i class="fa-solid fa-play text-[0.6rem]"></i> See How It Works
-      </a>
-    </div>
-  </div>
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-    <span class="text-[0.55rem] tracking-[0.2em] uppercase text-muted font-display">Scroll</span>
-    <div class="w-px h-6 bg-gradient-to-b from-muted to-transparent"></div>
+<nav class="flex justify-between items-center py-4 mb-10 border-b border-border">
+  <div class="font-display font-black text-xl text-accent">ZakaPay</div>
+</nav>
+
+<section class="text-center py-10">
+  <h1 class="font-display font-black text-4xl mb-4 leading-tight">Abolishing the <br><span class="text-accent">10% Informal Tax.</span></h1>
+  <p class="text-fg/70 mb-8 max-w-sm mx-auto">Send money on WhatsApp for R1. Cash out at your local spaza. Secure, fast, and local.</p>
+  <div class="flex flex-col gap-4">
+    <a href="#waitlist" class="bg-accent text-bg font-bold py-4 rounded-xl">Join the Waitlist</a>
+    <a href="https://wa.me/27761978148?text=HI" class="border border-border py-4 rounded-xl">Chat on WhatsApp</a>
   </div>
 </section>
 
-<!-- ==================== PROBLEM ==================== -->
-<section id="problem" class="py-20 px-5">
-  <div class="max-w-3xl mx-auto">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">The Invisible 10% Tax</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed max-w-xl mb-10">
-      Spaza shops charge R1 per R10 for withdrawals, electricity, and vouchers — not out of greed, but because current POS systems pay insufficient commissions. Everyone is trapped.
-    </p>
-
-    <!-- Fee Table -->
-    <div class="reveal bg-card border border-border rounded-2xl overflow-hidden mb-6">
-      <div class="px-5 pt-4 pb-2">
-        <span class="text-[0.6rem] text-muted uppercase tracking-widest font-display font-semibold">R200 Transfer — Verified Across 20 Interviews</span>
-      </div>
-      <div class="px-5 py-3 border-b border-border flex items-center text-[0.6rem] text-muted uppercase tracking-wider font-semibold">
-        <span class="flex-1">Method</span>
-        <span class="w-16 text-right">Fee</span>
-        <span class="w-12 text-right">%</span>
-      </div>
-      <div class="px-5 py-3 border-b border-border flex items-center">
-        <span class="flex-1 text-sm text-fg-dim">Spaza markup (bank card)</span>
-        <span class="w-16 text-right font-display font-bold text-danger">R20</span>
-        <span class="w-12 text-right text-xs text-muted">10%</span>
-      </div>
-      <div class="px-5 py-3 border-b border-border flex items-center">
-        <span class="flex-1 text-sm text-fg-dim">FNB Cash Send (Shoprite)</span>
-        <span class="w-16 text-right font-display font-bold text-danger">R9.99</span>
-        <span class="w-12 text-right text-xs text-muted">5%</span>
-      </div>
-      <div class="px-5 py-3 border-b border-border flex items-center">
-        <span class="flex-1 text-sm text-fg-dim">Mukuru (cross-border)</span>
-        <span class="w-16 text-right font-display font-bold text-danger">R50+</span>
-        <span class="w-12 text-right text-xs text-muted">25%+</span>
-      </div>
-      <div class="px-5 py-3 bg-accent/[0.04] flex items-center">
-        <span class="flex-1 text-sm text-accent font-semibold">ZakaPay (local)</span>
-        <span class="w-16 text-right font-display font-bold text-accent">R1</span>
-        <span class="w-12 text-right text-xs text-accent">0.5%</span>
-      </div>
-      <div class="px-5 py-3 bg-accent/[0.04] flex items-center">
-        <span class="flex-1 text-sm text-accent font-semibold">ZakaPay (cross-border)</span>
-        <span class="w-16 text-right font-display font-bold text-accent">R6</span>
-        <span class="w-12 text-right text-xs text-accent">3%</span>
-      </div>
+<section class="py-12 border-t border-border mt-10">
+  <h2 class="font-display font-bold text-2xl mb-6">The Problem</h2>
+  <div class="bg-card border border-border rounded-xl p-5">
+    <div class="flex justify-between mb-4 text-sm font-bold border-b border-border pb-2">
+      <span>Method (R200)</span><span>Fee</span>
     </div>
-
-    <!-- Saving Card -->
-    <div class="reveal bg-gradient-to-br from-accent/10 to-accent-warm/5 border border-accent/20 rounded-2xl p-6 text-center">
-      <div class="font-display text-4xl sm:text-5xl font-black text-accent leading-none">R1,080</div>
-      <p class="text-sm text-fg-dim mt-3 max-w-sm mx-auto leading-relaxed">
-        Annual savings per cross-border user. That's a month of electricity. School uniforms. A family milestone.
-      </p>
+    <div class="flex justify-between py-2 text-sm text-red-400">
+      <span>Spaza Markup</span><span>R20</span>
+    </div>
+    <div class="flex justify-between py-2 text-sm text-red-400">
+      <span>FNB Cash Send</span><span>R9.99</span>
+    </div>
+    <div class="flex justify-between py-2 text-sm text-accent font-bold">
+      <span>ZakaPay</span><span>R1</span>
     </div>
   </div>
 </section>
 
-<!-- ==================== HOW IT WORKS ==================== -->
-<section id="how" class="py-20 px-5">
-  <div class="max-w-3xl mx-auto">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">How It Works</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed max-w-xl mb-10">
-      No app. No bank account. No branch visit. Just WhatsApp and the spaza on your corner.
-    </p>
-
-    <!-- Steps -->
-    <div class="space-y-6 mb-10">
-      <div class="reveal flex gap-4 items-start">
-        <div class="shrink-0 w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-display font-bold text-accent text-sm">1</div>
-        <div>
-          <h4 class="font-display font-bold text-base mb-1">Send "HI" on WhatsApp</h4>
-          <p class="text-sm text-fg-dim leading-relaxed">No download. No registration. Open WhatsApp, message ZakaPay, and you're in. Your grandmother can do this.</p>
-        </div>
-      </div>
-      <div class="reveal flex gap-4 items-start" style="transition-delay:0.1s">
-        <div class="shrink-0 w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-display font-bold text-accent text-sm">2</div>
-        <div>
-          <h4 class="font-display font-bold text-base mb-1">Send Money for R1</h4>
-          <p class="text-sm text-fg-dim leading-relaxed">Enter the recipient's number and amount. Fee shown before you confirm. Always R1 flat. No surprises.</p>
-        </div>
-      </div>
-      <div class="reveal flex gap-4 items-start" style="transition-delay:0.2s">
-        <div class="shrink-0 w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-display font-bold text-accent text-sm">3</div>
-        <div>
-          <h4 class="font-display font-bold text-base mb-1">Cash Out at the Spaza</h4>
-          <p class="text-sm text-fg-dim leading-relaxed">Recipient gets a voucher code. Walks to the nearest spaza. Shows the code. Gets cash. Done.</p>
-        </div>
-      </div>
-      <div class="reveal flex gap-4 items-start" style="transition-delay:0.3s">
-        <div class="shrink-0 w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-display font-bold text-accent text-sm">4</div>
-        <div>
-          <h4 class="font-display font-bold text-base mb-1">Spaza Owner Earns R1</h4>
-          <p class="text-sm text-fg-dim leading-relaxed">The shopkeeper earns R1 commission per transaction. Same as current markup — but no arguments because the customer only pays R1 total.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stellar Badge -->
-    <div class="reveal flex items-center gap-4 p-4 rounded-xl bg-card border border-border mb-10">
-      <div class="shrink-0 w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center font-display font-black text-accent text-sm">S</div>
-      <p class="text-sm text-fg-dim"><strong class="text-fg">Powered by Stellar</strong> — Secure, instant settlement. USDC cross-border transfers. Near-zero transaction costs.</p>
-    </div>
-
-    <!-- WhatsApp Demo -->
-    <div class="reveal max-w-sm mx-auto">
-      <p class="text-center text-[0.6rem] text-muted uppercase tracking-widest font-display font-semibold mb-4">WhatsApp Demo</p>
-      <div class="rounded-2xl overflow-hidden border-2 border-[#2a3942] shadow-2xl shadow-black/50">
-        <!-- Header -->
-        <div class="bg-[#1f2c34] px-4 py-3 flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-accent-warm flex items-center justify-center font-display font-bold text-xs text-bg">ZP</div>
-          <div>
-            <div class="text-sm font-semibold text-fg">ZakaPay</div>
-            <div class="text-[0.65rem] text-accent">online</div>
-          </div>
-        </div>
-        <!-- Messages -->
-        <div class="bg-[#0b141a] p-4 space-y-2 wa-body" id="waBody">
-          <!-- Injected by JS -->
-        </div>
-        <!-- Input -->
-        <div class="bg-[#1f2c34] border-t border-[#2a3942] px-3 py-2 flex items-center gap-2">
-          <i class="fa-regular fa-face-smile text-muted text-base"></i>
-          <input type="text" class="flex-1 bg-[#2a3942] border-none rounded-full px-4 py-2 text-xs text-fg outline-none placeholder:text-white/25" placeholder="Type a message" id="waInput">
-          <button id="waSend" class="w-8 h-8 rounded-full bg-accent flex items-center justify-center hover:scale-110 transition-transform">
-            <i class="fa-solid fa-paper-plane text-[0.55rem] text-bg"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<section id="waitlist" class="py-12 border-t border-border mt-10">
+  <h2 class="font-display font-bold text-2xl mb-2">Secure Your Spot</h2>
+  <p class="text-sm text-fg/60 mb-6">Be the first in your neighborhood to save.</p>
+  <form class="flex flex-col gap-4">
+    <input type="tel" placeholder="WhatsApp Number" class="bg-card border border-border p-4 rounded-xl outline-none focus:border-accent">
+    <select class="bg-card border border-border p-4 rounded-xl outline-none focus:border-accent">
+        <option>Nyanga</option>
+        <option>Delft</option>
+        <option>Khayelitsha</option>
+        <option>Gugulethu</option>
+        <option>Other</option>
+    </select>
+    <button type="submit" class="bg-accent text-bg font-bold py-4 rounded-xl">Join Waitlist</button>
+  </form>
 </section>
 
-<!-- ==================== CORRIDORS ==================== -->
-<section class="py-20 px-5">
-  <div class="max-w-3xl mx-auto">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">Cross-Border Corridors</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed max-w-xl mb-10">
-      Send money home. R5 flat fee. WhatsApp only. Powered by Stellar.
-    </p>
-    <div class="reveal grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <div class="bg-card border border-border rounded-xl p-4 text-center hover:border-accent/20 transition">
-        <div class="text-2xl mb-2">🇿🇼</div>
-        <div class="font-display font-bold text-sm">Zimbabwe</div>
-        <div class="text-[0.65rem] text-muted mt-1">MoneyGram</div>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-4 text-center hover:border-accent/20 transition">
-        <div class="text-2xl mb-2">🇲🇿</div>
-        <div class="font-display font-bold text-sm">Mozambique</div>
-        <div class="text-[0.65rem] text-muted mt-1">e-mola</div>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-4 text-center hover:border-accent/20 transition">
-        <div class="text-2xl mb-2">🇹🇿</div>
-        <div class="font-display font-bold text-sm">Tanzania</div>
-        <div class="text-[0.65rem] text-muted mt-1">M-Pesa</div>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-4 text-center hover:border-accent/20 transition">
-        <div class="text-2xl mb-2">🇲🇼</div>
-        <div class="font-display font-bold text-sm">Malawi</div>
-        <div class="text-[0.65rem] text-muted mt-1">TNM / Airtel</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SECURITY ==================== -->
-<section id="security" class="py-20 px-5">
-  <div class="max-w-3xl mx-auto">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">Security That Puts You in Control</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed max-w-xl mb-10">
-      No hidden virtual cards. No OTPs that may or may not arrive. No fighting a bank that "finds no fault." You lock your own account.
-    </p>
-    <div class="reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="bg-card border border-border rounded-xl p-5 hover:border-accent/20 transition">
-        <div class="w-10 h-10 rounded-lg bg-danger/10 flex items-center justify-center mb-3">
-          <i class="fa-solid fa-snowflake text-danger"></i>
-        </div>
-        <h4 class="font-display font-bold text-sm mb-1">Remote FREEZE</h4>
-        <p class="text-xs text-fg-dim leading-relaxed">Send "FREEZE" from <strong class="text-fg">any phone</strong> to instantly lock your Stellar keys. No device ownership required.</p>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-5 hover:border-accent/20 transition">
-        <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
-          <i class="fa-solid fa-user-shield text-accent"></i>
-        </div>
-        <h4 class="font-display font-bold text-sm mb-1">Trustee System</h4>
-        <p class="text-xs text-fg-dim leading-relaxed">Designate a backup phone number. If your device is stolen, your Trustee can freeze your account from their WhatsApp.</p>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-5 hover:border-accent/20 transition">
-        <div class="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-3">
-          <i class="fa-solid fa-lock text-gold"></i>
-        </div>
-        <h4 class="font-display font-bold text-sm mb-1">Merchant PIN</h4>
-        <p class="text-xs text-fg-dim leading-relaxed">6-digit PIN required for all spaza redemptions. Prevents social engineering. Owner can set limits for managers.</p>
-      </div>
-      <div class="bg-card border border-border rounded-xl p-5 hover:border-accent/20 transition">
-        <div class="w-10 h-10 rounded-lg bg-accent-warm/10 flex items-center justify-center mb-3">
-          <i class="fa-solid fa-ban text-accent-warm"></i>
-        </div>
-        <h4 class="font-display font-bold text-sm mb-1">No Hidden Rails</h4>
-        <p class="text-xs text-fg-dim leading-relaxed">No virtual cards. No silent spending. Nothing can be created without your explicit WhatsApp command.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== TEAM ==================== -->
-<section id="team" class="py-20 px-5">
-  <div class="max-w-3xl mx-auto">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">Built From the Community</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed max-w-xl mb-10">
-      Not a boardroom. Not a glass office. Built in Nyanga, for Nyanga, by someone who grew up there.
-    </p>
-    <div class="reveal bg-card border border-border rounded-2xl p-6 sm:p-8">
-      <div class="flex flex-col sm:flex-row gap-6">
-        <div class="shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent-warm flex items-center justify-center font-display font-black text-2xl text-bg">N</div>
-        <div>
-          <h3 class="font-display font-bold text-xl mb-1">Ngelikade Eventual Mrasi</h3>
-          <p class="text-xs text-accent font-semibold mb-3">Founder & Product Lead</p>
-          <p class="text-sm text-fg-dim leading-relaxed mb-4">
-            Born in New Cross Roads, Nyanga. UCT Postgrad in Entrepreneurship. Design Thinking certified at Hasso Plattner d-school. 12-month mentorship under Craig Newborn (Founder, PayJustNow). Co-founded Nass Learn, raised R100,000 pre-seed. 10 years operations management — teams of 50+, six-figure budgets. Building for the community, from the community.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">UCT Postgrad</span>
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">d-school Certified</span>
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">PayJustNow Mentee</span>
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">R100k Raised</span>
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">10yr Operations</span>
-            <span class="px-3 py-1 rounded-md text-[0.6rem] font-semibold bg-accent/6 border border-accent/12 text-accent">Nyanga Native</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== WAITLIST ==================== -->
-<section id="waitlist" class="py-20 px-5">
-  <div class="max-w-xl mx-auto text-center">
-    <div class="reveal w-14 h-[3px] bg-gradient-to-r from-accent to-accent-warm rounded-full mx-auto mb-4"></div>
-    <h2 class="reveal text-3xl sm:text-4xl font-display font-extrabold tracking-tight mb-3">Join the Waitlist</h2>
-    <p class="reveal text-base text-fg-dim leading-relaxed mb-10">
-      Be the first to send money for R1. No app. Just WhatsApp.
-    </p>
-
-    <form id="waitlistForm" class="reveal space-y-4 max-w-sm mx-auto text-left">
-      <!-- Phone -->
-      <div>
-        <label class="block text-xs text-muted font-semibold mb-1.5 uppercase tracking-wider">WhatsApp Number</label>
-        <div class="relative">
-          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted text-sm">+27</span>
-          <input type="tel" id="phone" required pattern="[0-9]{9}" maxlength="9" placeholder="82 123 4567" class="w-full bg-card border border-border rounded-xl pl-14 pr-4 py-3 text-sm text-fg outline-none focus:border-accent transition placeholder:text-muted/50">
-        </div>
-      </div>
-
-      <!-- Neighborhood -->
-      <div>
-        <label class="block text-xs text-muted font-semibold mb-1.5 uppercase tracking-wider">Neighborhood</label>
-        <select id="neighborhood" required class="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-fg outline-none focus:border-accent transition appearance-none">
-          <option value="" disabled selected>Select your area</option>
-          <option value="nyanga">Nyanga</option>
-          <option value="gugulethu">Gugulethu</option>
-          <option value="khayelitsha">Khayelitsha</option>
-          <option value="delft">Delft</option>
-          <option value="philippi">Philippi</option>
-          <option value="mitchells-plain">Mitchell's Plain</option>
-          <option value="crossroads">New Cross Roads</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-
-      <!-- User Type -->
-      <div>
-        <label class="block text-xs text-muted font-semibold mb-1.5 uppercase tracking-wider">I am a</label>
-        <div class="grid grid-cols-2 gap-3">
-          <label class="cursor-pointer">
-            <input type="radio" name="userType" value="customer" required class="sr-only peer">
-            <div class="bg-card border border-border rounded-xl p-3 text-center text-sm text-fg-dim peer-checked:border-accent peer-checked:text-accent peer-checked:bg-accent/5 transition">
-              <i class="fa-solid fa-paper-plane block text-lg mb-1"></i>
-              Customer
-            </div>
-          </label>
-          <label class="cursor-pointer">
-            <input type="radio" name="userType" value="spaza-owner" required class="sr-only peer">
-            <div class="bg-card border border-border rounded-xl p-3 text-center text-sm text-fg-dim peer-checked:border-accent peer-checked:text-accent peer-checked:bg-accent/5 transition">
-              <i class="fa-solid fa-store block text-lg mb-1"></i>
-              Spaza Owner
-            </div>
-          </label>
-        </div>
-      </div>
-
-      <!-- Submit -->
-      <button type="submit" class="w-full bg-accent text-bg font-display font-bold text-sm py-3.5 rounded-xl hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
-        <i class="fa-brands fa-whatsapp"></i>
-        Join the Waitlist
-      </button>
-
-      <p class="text-[0.6rem] text-muted text-center leading-relaxed">
-        We'll WhatsApp you when ZakaPay launches. No spam. No app download. Just R1.
-      </p>
-    </form>
-
-    <!-- Success message (hidden by default) -->
-    <div id="successMsg" class="hidden max-w-sm mx-auto text-center">
-      <div class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mx-auto mb-4">
-        <i class="fa-solid fa-check text-2xl text-accent"></i>
-      </div>
-      <h3 class="font-display font-bold text-xl mb-2">You're on the list!</h3>
-      <p class="text-sm text-fg-dim mb-6">We'll WhatsApp you when ZakaPay launches in your area.</p>
-      <a href="https://wa.me/27XXXXXXXXX?text=HI" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-whatsapp text-white font-bold text-sm hover:scale-105 transition-transform">
-        <i class="fa-brands fa-whatsapp"></i>
-        Chat with ZakaPay Now
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="py-16 px-5 border-t border-border">
-  <div class="max-w-3xl mx-auto text-center">
-    <div class="font-display font-black text-xl mb-2">
-      <span class="text-fg">Zaka</span><span class="text-accent">Pay</span>
-    </div>
-    <p class="text-sm text-fg-dim mb-6">A bank that speaks your language.</p>
-    <div class="flex justify-center gap-5 mb-6">
-      <a href="#hero" class="text-xs text-muted hover:text-fg transition">Home</a>
-      <a href="#problem" class="text-xs text-muted hover:text-fg transition">Problem</a>
-      <a href="#how" class="text-xs text-muted hover:text-fg transition">How</a>
-      <a href="#security" class="text-xs text-muted hover:text-fg transition">Security</a>
-      <a href="#team" class="text-xs text-muted hover:text-fg transition">Team</a>
-    </div>
-    <div class="flex justify-center gap-3 mb-6">
-      <a href="https://wa.me/27XXXXXXXXX?text=HI" target="_blank" class="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition text-sm"><i class="fa-brands fa-whatsapp"></i></a>
-      <a href="https://x.com/zakapay" target="_blank" class="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition text-sm"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="https://github.com/zakapay" target="_blank" class="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition text-sm"><i class="fa-brands fa-github"></i></a>
-      <a href="https://linkedin.com/in/ngeli-mrasi-479b86237" target="_blank" class="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition text-sm"><i class="fa-brands fa-linkedin-in"></i></a>
-    </div>
-    <a href="https://github.com/zakapay" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-fg-dim text-xs hover:border-accent hover:text-accent transition mb-6">
-      <i class="fa-brands fa-github"></i> View on GitHub
-    </a>
-    <p class="text-[0.65rem] text-muted">Built for the corner shop. Not the corner office.</p>
-    <div class="mt-3">💚 ⚡</div>
-  </div>
+<footer class="py-20 text-center opacity-50 text-xs tracking-widest">
+  ZAKAPAY &copy; 2026 | BUILT IN NYANGA
 </footer>
 
-<!-- ==================== SCRIPTS ==================== -->
-<script>
-  // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const delay = parseInt(e.target.style.transitionDelay || '0') * 1000;
-        setTimeout(() => e.target.classList.add('visible'), delay);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // WhatsApp demo
-  const waBody = document.getElementById('waBody');
-  const waInput = document.getElementById('waInput');
-  const waSend = document.getElementById('waSend');
-
-  const msgs = [
-    { t: 'bot', m: "Sawubona! I'm ZakaPay. 👋🏾\nSend money on WhatsApp. R1 flat fee.", d: 600 },
-    { t: 'bot', m: "What would you like to do?\n\nSEND — Send money\nBALANCE — Check balance\nHELP — See all commands", d: 1600 },
-    { t: 'user', m: "Send R200 to 082***3456", d: 3200 },
-    { t: 'bot', m: "Sending R200 to 082***3456\n\nFee: R1\nTotal: R201\n\nType YES to confirm.", d: 4800 },
-    { t: 'user', m: "YES", d: 6500 },
-    { t: 'bot', m: "Sent! ✅\n\nYour cash-out code: ZP-4821\n\nShow this at any ZakaPay spaza.\nValid for 24 hours.\n\nThe recipient will receive a WhatsApp notification.", d: 8000 },
-  ];
-
-  let20I% started = false;
-  function startDemo() {
-    if (started) return;
-    started = true;
-    msgs.forEach(m => {
-      setTimeout(() => addMsg(m.t, m.m), m.d);
-    });
-  }
-
-  function addMsg(type, text) {
-    const div = document.createElement('div');
-    const align = type === 'user' ? 'self-end' : 'self-start';
-    const bg = type === 'user' ? 'bg-[#005c4b]' : 'bg-[#1f2c34]';
-    const radius = type === 'user' ? 'rounded-lg rounded-tr-sm' : 'rounded-lg rounded-tl-sm';
-    const now = new Date();
-    const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-    div.className = `wa-msg max-w-[85%] ${align} ${bg} ${radius} px-3 py-2 text-xs leading-relaxed`;
-    div.innerHTML = `${text.replace(/\n/g,'<br>')}<div class="text-[0.55rem] text-white/30 text-right mt-1">${time}</div>`;
-    waBody.appendChild(div);
-    waBody.scrollTop = waBody.scrollHeight;
-  }
-
-  // Start demo when visible
-  const demoObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { setTimeout(startDemo, 400); demoObs.unobserve(e.target); } });
-  }, { threshold: 0.3 });
-  demoObs.observe(document.querySelector('.wa-body'));
-
-  // User can type in demo
-  const botReplies = {
-    'help': "Here's what you can do:\n\nSEND — Send money to anyone\nBALANCE — Check your balance\nFREEZE — Lock your account\nLANG — Change language\nTRUSTEE — Set backup contact\n\nJust type what you need.",
-    'balance': "Your ZakaPay balance: R450\n\nLast transaction: R200 sent to 082***3456\nFee: R1\nCode: ZP-4821",
-    'freeze': "Account frozen. 🔒\n\nYour Stellar keys are locked. No transactions possible until you send UNFREEZE with your PIN.\n\nThis command was sent from your registered number.",
-    'lang': "Choose your language:\n\n1. English\n2. isiZulu\n3. isiXhosa\n4. Português\n\nType the number to select.",
-  };
-
-  function handleSend() {
-    const text = waInput.value.trim().toLowerCase();
-    if (!text) return;
-    addMsg('user', waInput.value.trim());
-    waInput.value = '';
-    setTimeout(() => {
-      const reply = botReplies[text];
-      if (reply) {
-        addMsg('bot', reply);
-      } else {
-        addMsg('bot', "I'm just a demo for now. 😊\n\nThe real ZakaPay bot launches soon.\nJoin the waitlist above!");
-      }
-    }, 700);
-  }
-
-  waSend.addEventListener('click', handleSend);
-  waInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
-
-  // Waitlist form
-  document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const phone = document.getElementById('phone').value;
-    const neighborhood = document.getElementById('neighborhood').value;
-    const userType = document.querySelector('input[name="userType"]:checked')?.value;
-
-    // Log data (replace with real API call later)
-    console.log('Waitlist signup:', { phone: '+27' + phone, neighborhood, userType });
-
-    // Show success
-    document.getElementById('waitlistForm').classList.add('hidden');
-    document.getElementById('successMsg').classList.remove('hidden');
-
-    // Redirect to WhatsApp after 2 seconds
-    setTimeout(() => {
-      window.open('https://wa.me/27' + phone + '?text=HI%20ZakaPay%20-%20just
+</body>
+</html>
 
