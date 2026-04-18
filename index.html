@@ -1,62 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZakaPay | Abolishing the 10% Tax</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #060f08;
-            --primary-green: #00e676;
-            --text-white: #f0ede6;
-        }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-white);
-            font-family: 'Outfit', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
-        }
-        .container { max-width: 500px; width: 100%; }
-        h1 { color: var(--primary-green); font-size: 2.5rem; margin-bottom: 10px; }
-        p { font-size: 1.1rem; line-height: 1.6; opacity: 0.9; }
-        .highlight { font-weight: bold; color: var(--primary-green); }
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-green);
-            color: var(--bg-color);
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 25px;
-            width: 90%;
-            transition: transform 0.2s;
-        }
-        .btn:active { transform: scale(0.95); }
-        .footer { margin-top: 40px; font-size: 0.8rem; opacity: 0.6; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZakaPay — A Bank That Speaks Your Language</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #060f08;
+    --surface: #0a1a10;
+    --surface-light: #0f2518;
+    --accent: #00e676;
+    --accent-glow: rgba(0,230,118,0.15);
+    --gold: #ffd700;
+    --text: #f0ede6;
+    --text-muted: #7a8a7e;
+    --red: #ff4444;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(0,230,118,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(0,230,118,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6,15,8,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,230,118,0.1);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo .bolt { width: 32px; height: 32px; }
+  .nav-logo .bolt svg { width: 100%; height: 100%; }
+  .nav-logo .name { font-size: 1.2rem; font-weight: 800; letter-spacing: 0.02em; }
+  .nav-logo .name .z { color: var(--text); }
+  .nav-logo .name .p { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-cta:hover {
+    background: #33f09a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,230,118,0.3);
+  }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+
+  .hero-bolt {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 32px;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .hero-bolt svg { width: 100%; height: 100%; }
+
+  @keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(0,230,118,0.3)); }
+    50% { filter: drop-shadow(0 0 40px rgba(0,230,118,0.6)); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+
+  .hero h1 .highlight { color: var(--accent); }
+
+  .hero h1 .strike {
+    text-decoration: line-through;
+    color: var(--red);
+    opacity: 0.7;
+    font-size: 0.7em;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-btn {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 16px 48px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-btn:hover {
+    background: #33f09a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,230,118,0.3);
+  }
+
+  .hero-note { font-size: 0.8rem; color: var(--text-muted); }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 48px;
+  }
+
+  .fees { position: relative; z-index: 1; padding: 80px 24px; }
+
+  .fees-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .fee-card {
+    background: var(--surface);
+    border: 1px solid rgba(0,230,118,0.1);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .fee-card:hover {
+    border-color: rgba(0,230,118,0.3);
+    transform: translateY(-2px);
+  }
+
+  .fee-card .icon { font-size: 1.8rem; margin-bottom: 12px; }
+
+  .fee-card .action {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .fee-card .price { font-size: 2rem; font-weight: 900; color: var(--accent); }
+
+  .fee-card.featured { border-color: var(--accent); background: rgba(0,230,118,0.05); }
+  .fee-card.featured .price { color: var(--gold); }
+
+  .compare {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+
+  .compare-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(0,230,118,0.1);
+  }
+
+  .compare-table td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.95rem;
+  }
+
+  .compare-table .provider { font-weight: 600; }
+
+  .compare-table .fee { font-weight: 700; font-family: monospace; font-size: 1rem; }
+  .compare-table .fee.expensive { color: var(--red); }
+  .compare-table .fee.cheap { color: var(--accent); font-size: 1.2rem; }
+
+  .compare-table .row-zakapay { background: rgba(0,230,118,0.08); border-radius: 12px; }
+  .compare-table .row-zakapay td { border-bottom: none; }
+
+  .compare-table .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 8px;
+  }
+
+  .compare-note { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 24px; }
+
+  .corridors { position: relative; z-index: 1; padding: 80px 24px; max-width: 700px; margin: 0 auto; }
+
+  .corridor-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+
+  @media (max-width: 500px) { .corridor-list { grid-template-columns: 1fr; } }
+
+  .corridor {
+    background: var(--surface);
+    border: 1px solid rgba(0,230,118,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .corridor .flag { font-size: 1.5rem; }
+  .corridor .country { font-weight: 700; font-size: 0.95rem; }
+  .corridor .method { font-size: 0.75rem; color: var(--text-muted); }
+
+  .how { position: relative; z-index: 1; padding: 80px 24px; max-width: 700px; margin: 0 auto; }
+  .steps { display: flex; flex-direction: column; gap: 32px; }
+  .step { display: flex; gap: 20px; align-items: flex-start; }
+
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .step-content p { font-size: 0.9rem; color: var(--text-muted); }
+
+  .security { position: relative; z-index: 1; padding: 80px 24px; max-width: 700px; margin: 0 auto; }
+  .security-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
+
+  .sec-card { background: var(--surface); border: 1px solid rgba(0,230,118,0.08); border-radius: 12px; padding: 20px; }
+  .sec-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
+  .sec-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+  .waitlist { position: relative; z-index: 1; padding: 80px 24px; max-width: 500px; margin: 0 auto; }
+  .waitlist-form { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+
+  .waitlist-form input,
+  .waitlist-form select {
+    background: var(--surface);
+    border: 1px solid rgba(0,230,118,0.15);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .waitlist-form input:focus,
+  .waitlist-form select:focus { border-color: var(--accent); }
+  .waitlist-form input::placeholder { color: var(--text-muted); }
+
+  .waitlist-form button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 100px;
+    padding: 14px 24px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .waitlist-form button:hover {
+    background: #33f09a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,230,118,0.3);
+  }
+
+  .waitlist-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+  .final-cta { position: relative; z-index: 1; padding: 100px 24px; text-align: center; }
+  .final-cta h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin-bottom: 16px; }
+  .final-cta h2 .accent { color: var(--accent); }
+  .final-cta p { font-size: 1rem; color: var(--text-muted); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  footer { position: relative; z-index: 1; padding: 40px 24px; text-align: center; border-top: 1px solid rgba(0,230,118,0.08); }
+  footer p { font-size: 0.75rem; color: var(--text-muted); }
+  footer .links { margin-top: 12px; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  footer .links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; transition: color 0.2s; }
+  footer .links a:hover { color: var(--accent); }
+
+  .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 0.8s ease forwards; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>ZakaPay</h1>
-        <p>Tired of paying <span class="highlight">R10 to withdraw R100?</span></p>
-        <p>We are abolishing the 10% informal tax. Send money home for a flat <span class="highlight">R1 fee</span>.</p>
-        
-        <a href="https://wa.me/message/CCSJNFTTNIHSA1" class="btn">Chat with ZakaPay on WhatsApp</a>
-        
-        <div class="footer">
-            Built for the community. Powered by Stellar. ⚡
-        </div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="bolt">
+      <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(512, 512)">
+          <polygon points="-180,-280 220,-280 -20,20 260,20 -60,280 -280,280 80,20 -260,20" fill="#00e676"/>
+        </g>
+      </svg>
     </div>
+    <div class="name"><span class="z">Zaka</span><span class="p">Pay</span></div>
+  </div>
+  <a href="https://wa.me/message/CCSJNFTTNIHSA1" class="nav-cta">Chat on WhatsApp</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bolt">
+    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(512, 512)">
+        <polygon points="-180,-280 220,-280 -20,20 260,20 -60,280 -280,280 80,20 -260,20" fill="#00e676"/>
+      </g>
+    </svg>
+  </div>
+  <h1 class="fade-up">
+    Send money for <span class="highlight">R2.50</span>.<br>
+    Not <span class="strike">R10</span>.
+  </h1>
+  <p class="hero-sub fade-up delay-1">
+    A bank that speaks your language.<br>
+    Send money on WhatsApp. Cash out at the spaza on your corner.
+  </p>
+  <div class="hero-cta fade-up delay-2">
+    <a href="https://wa.me/message/CCSJNFTTNIHSA1" class="hero-btn">
+      Start on WhatsApp
+    </a>
+    <span class="hero-note">No app download. Works on any phone.</span>
+  </div>
+</section>
+
+<section class="fees" id="fees">
+  <div class="section-label">Simple Pricing</div>
+  <div class="section-title">Every fee. No surprises.</div>
+
+  <div class="fees-grid">
+    <div class="fee-card">
+      <div class="icon">💸</div>
+      <div class="action">Send Money Locally</div>
+      <div class="price">R2.50</div>
+    </div>
+    <div class="fee-card">
+      <div class="icon">🏪</div>
+      <div class="action">Cash In at Spaza</div>
+      <div class="price">R2.00</div>
+    </div>
+    <div class="fee-card">
+      <div class="icon">💵</div>
+      <div class="action">Cash Out at Spaza</div>
+      <div class="price">R2.00</div>
+    </div>
+    <div class="fee-card featured">
+      <div class="icon">🌍</div>
+      <div class="action">Send Cross-Border</div>
+      <div class="price">R10</div>
+    </div>
+  </div>
+</section>
+
+<section class="compare">
+  <div class="section-label">The Truth</div>
+  <div class="section-title">What you're paying now vs ZakaPay</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Fee on R100</th>
+        <th>Fee on R500</th>
+        <th>Fee on R1,000</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="provider">Capitec Send Cash</td>
+        <td class="fee expensive">R10</td>
+        <td class="fee expensive">R10</td>
+        <td class="fee expensive">R10</td>
+      </tr>
+      <tr>
+        <td class="provider">FNB eWallet</td>
+        <td class="fee expensive">R10</td>
+        <td class="fee expensive">R13</td>
+        <td class="fee expensive">R16</td>
+      </tr>
+      <tr>
+        <td class="provider">PayShap</td>
+        <td class="fee" style="color: var(--gold);">R5-R7.50</td>
+        <td class="fee" style="color: var(--gold);">R5-R7.50</td>
+        <td class="fee" style="color: var(--gold);">R5-R7.50</td>
+      </tr>
+      <tr class="row-zakapay">
+        <td class="provider">⚡ ZakaPay <span class="badge">Cheapest</span></td>
+        <td class="fee cheap">R2.50</td>
+        <td class="fee cheap">R2.50</td>
+        <td class="fee cheap">R2.50</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="compare-note">Still 4x cheaper than Capitec. Always R2.50. No math.</p>
+</section>
+
+<section class="compare">
+  <div class="section-label">Cross-Border</div>
+  <div class="section-title">Sending R1,000 to Zimbabwe</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Fee + FX Margin</th>
+        <th>Family Receives</th>
+        <th>You Lose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="provider">Banks (SWIFT)</td>
+        <td class="fee expensive">10-12%</td>
+        <td class="fee expensive">R890</td>
+        <td class="fee expensive">R110</td>
+      </tr>
+      <tr>
+        <td class="provider">Western Union</td>
+        <td class="fee expensive">8-10%</td>
+        <td class="fee expensive">R910</td>
+        <td class="fee expensive">R90</td>
+      </tr>
+      <tr>
+        <td class="provider">Mukuru</td>
+        <td class="fee expensive">7-8%</td>
+        <td class="fee expensive">R920</td>
+        <td class="fee expensive">R80</td>
+      </tr>
+      <tr>
+        <td class="provider">Mama Money</td>
+        <td class="fee" style="color: var(--gold);">5%</td>
+        <td class="fee" style="color: var(--gold);">R950</td>
+        <td class="fee" style="color: var(--gold);">R50</td>
+      </tr>
+      <tr class="row-zakapay">
+        <td class="provider">⚡ ZakaPay <span class="badge">Cheapest</span></td>
+        <td class="fee cheap">1% flat</td>
+        <td class="fee cheap">R990</td>
+        <td class="fee cheap">R10</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="compare-note">Your family gets R990. Not R890. That's R100 more in their pocket.</p>
+</section>
+
+<section class="corridors">
+  <div class="section-label">Where You Can Send</div>
+  <div class="section-title">Four corridors. R10 flat.</div>
+
+  <div class="corridor-list">
+    <div class="corridor">
+      <span class="flag">🇿🇼</span>
+      <div>
+        <div class="country">Zimbabwe</div>
+        <div class="method">e-mola · EcoCash · Cash pickup</div>
+      </div>
+    </div>
+    <div class="corridor">
+      <span class="flag">🇲🇿</span>
+      <div>
+        <div class="country">Mozambique</div>
+        <div class="method">e-mola · M-Pesa · Bank transfer</div>
+      </div>
+    </div>
+    <div class="corridor">
+      <span class="flag">🇹🇿</span>
+      <div>
+        <div class="country">Tanzania</div>
+        <div class="method">M-Pesa · Tigo Pesa · Bank transfer</div>
+      </div>
+    </div>
+    <div class="corridor">
+      <span class="flag">🇲🇼</span>
+      <div>
+        <div class="country">Malawi</div>
+        <div class="method">Airtel Money · TNM Mpamba · Cash pickup</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three steps. No app.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Deposit cash at the spaza</h3>
+        <p>Give cash to the spaza owner. They trigger ZakaPay on their terminal. Your balance appears in WhatsApp. Fee: R2.00 (Merchant gets R1.00).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Send money on WhatsApp</h3>
+        <p>Type "SEND 200 to 082***3456" in WhatsApp. Confirm. Done. Fee: R2.50. Or send cross-border for R10.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Recipient cashes out</h3>
+        <p>They get a 6-digit code. Walk to any spaza. Enter the code. Get cash. Fee: R2.00 (Merchant gets R1.00).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="security">
+  <div class="section-label">Built for Trust</div>
+  <div class="section-title">Your money. Protected.</div>
+
+  <div class="security-features">
+    <div class="sec-card">
+      <h4>🔒 FREEZE Command</h4>
+      <p>Lost your phone? Type FREEZE in WhatsApp from any number. Instant lock.</p>
+    </div>
+    <div class="sec-card">
+      <h4>👤 Trustee Recovery</h4>
+      <p>Can't access your account? Your Trustee can help you recover it.</p>
+    </div>
+    <div class="sec-card">
+      <h4>🔐 Merchant PIN</h4>
+      <p>Spaza owners need a PIN to process your transaction. No PIN. No access.</p>
+    </div>
+    <div class="sec-card">
+      <h4>⏱️ Expiring Codes</h4>
+      <p>Cash-out codes expire in 10 minutes. Single use only. Can't be reused.</p>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist">
+  <div class="section-label">Get Early Access</div>
+  <div class="section-title">Join the waitlist</div>
+
+  <form action="https://formspree.io/f/mdayakdk" method="POST" class="waitlist-form">
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="tel" name="phone" placeholder="Your phone number (082...)" required>
+    <select name="interest" required>
+      <option value="" disabled selected>What interests you?</option>
+      <option value="send-money">Sending money locally</option>
+      <option value="cross-border">Sending money cross-border</option>
+      <option value="spaza-owner">I'm a spaza owner</option>
+      <option value="both">Both sending and receiving</option>
+    </select>
+    <input type="hidden" name="_subject" value="ZakaPay Waitlist Signup">
+    <button type="submit">Join Waitlist</button>
+  </form>
+
+  <p class="waitlist-note">We'll message you on WhatsApp when ZakaPay is ready in your area.</p>
+</section>
+
+<section class="final-cta">
+  <h2>Two-Fifty.<br><span class="accent">That's it.</span></h2>
+  <p>A bank that speaks your language. No app. No bank account. Just WhatsApp and the spaza on your corner.</p>
+  <a href="https://wa.me/message/CCSJNFTTNIHSA1" class="hero-btn">
+    Start on WhatsApp
+  </a>
+</section>
+
+<footer>
+  <p>ZakaPay — A bank that speaks your language.</p>
+  <div class="links">
+    <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Contact</a>
+    <a href="https://wa.me/message/CCSJNFTTNIHSA1">WhatsApp</a>
+  </div>
+  <p style="margin-top: 16px; font-size: 0.65rem;">
+    Built on Stellar · Powered by Randela · Made in South Africa
+  </p>
+</footer>
+
 </body>
 </html>
+
